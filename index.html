@@ -3,35 +3,78 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🔥 Top Products You’ll Love!</title>
+<title>Brand Haven</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
   body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    background: #f5f5f5;
+    background: #fefefe;
   }
+  /* Header */
   header {
-    text-align: center;
-    padding: 50px 20px;
     background: linear-gradient(90deg, #ff6f61, #ff3b2e);
     color: white;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
   }
   header h1 {
     margin: 0;
-    font-size: 2.8rem;
-    animation: slideIn 1s ease-out;
+    font-size: 2rem;
+    animation: slideDown 1s ease-out;
   }
-  header p {
-    font-size: 1.2rem;
-    margin-top: 10px;
-    animation: slideIn 1.5s ease-out;
+  nav {
+    display: flex;
+    gap: 20px;
+    align-items: center;
   }
-  @keyframes slideIn {
-    0% { transform: translateY(-50px); opacity: 0; }
-    100% { transform: translateY(0); opacity: 1; }
+  nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    position: relative;
+    transition: 0.3s;
   }
+  nav a:hover {
+    color: #fff200;
+  }
+  nav .dropdown {
+    position: relative;
+  }
+  nav .dropdown-content {
+    display: none;
+    position: absolute;
+    background: white;
+    color: black;
+    min-width: 150px;
+    top: 30px;
+    left: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  }
+  nav .dropdown-content a {
+    color: black;
+    padding: 10px 15px;
+    display: block;
+  }
+  nav .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  @keyframes slideDown {
+    0% { transform: translateY(-50px); opacity:0; }
+    100% { transform: translateY(0); opacity:1; }
+  }
+
+  /* Products section */
   .products {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -43,105 +86,128 @@
   .product-card {
     background: white;
     border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     transform: translateY(50px);
     opacity: 0;
-    transition: transform 0.5s, box-shadow 0.3s, opacity 0.5s;
+    transition: 0.5s;
   }
   .product-card.visible {
     transform: translateY(0);
     opacity: 1;
   }
-  .product-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
-  }
   .product-card img {
     width: 100%;
     height: 200px;
     object-fit: cover;
-    transition: transform 0.3s;
+    transition: 0.3s;
   }
   .product-card img:hover {
     transform: scale(1.1);
   }
   .info {
-    padding: 20px;
+    padding: 15px;
     text-align: center;
   }
   .info h2 {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     margin: 10px 0;
   }
   .info p {
-    font-size: 1rem;
+    font-size: 0.95rem;
     color: #555;
   }
   .info a {
     display: inline-block;
-    margin-top: 15px;
-    padding: 12px 25px;
+    margin-top: 10px;
+    padding: 10px 20px;
     background: #ff6f61;
     color: white;
     border-radius: 50px;
     text-decoration: none;
     font-weight: bold;
-    position: relative;
-    overflow: hidden;
-    transition: background 0.3s, transform 0.2s;
+    transition: 0.3s;
   }
   .info a:hover {
     background: #ff3b2e;
-    transform: scale(1.1);
   }
-  .confetti {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    pointer-events: none;
-    animation: confetti-fall 1s forwards;
+
+  /* Footer description */
+  footer {
+    background: #333;
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
   }
-  @keyframes confetti-fall {
-    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(100px) rotate(360deg); opacity: 0; }
+  footer p {
+    max-width: 800px;
+    margin: auto;
+    font-size: 1.1rem;
+    line-height: 1.6;
   }
+
+  /* Responsive horizontal scroll for mobile */
+  @media (max-width: 768px) {
+    .products {
+      grid-template-columns: repeat(4, 200px);
+      overflow-x: auto;
+      padding-bottom: 20px;
+      scroll-snap-type: x mandatory;
+    }
+    .product-card {
+      scroll-snap-align: start;
+    }
+  }
+
 </style>
 </head>
 <body>
 
 <header>
-  <h1>🔥 Must-Have Products!</h1>
-  <p>Click & grab your favorites now!</p>
+  <h1>Brand Haven</h1>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#allbrands">All Brands</a>
+    <div class="dropdown">
+      <a href="#">Categories ▼</a>
+      <div class="dropdown-content">
+        <a href="#">Skin Care Combo</a>
+        <a href="#">Accessories</a>
+        <a href="#">Trendy T-Shirts</a>
+        <a href="#">Jeans</a>
+        <a href="#">Cargoes</a>
+        <a href="#">Shirts</a>
+      </div>
+    </div>
+  </nav>
 </header>
 
 <section class="products" id="products">
-  <!-- Product cards will be generated dynamically -->
+  <!-- Products dynamically added here -->
 </section>
 
+<footer>
+  <p>Brand Haven always brings you genuine products that feel good and trendy. Explore our curated selection of fashion, accessories, and beauty items, all hand-picked to give you an amazing shopping experience with only the best affiliate links!</p>
+</footer>
+
 <script>
-  // PRODUCT LIST - Add your products here
+  // Dynamic products array - just add your affiliate info here
   const products = [
-    {
-      name: "Lakme Lipstick",
-      desc: "Smooth matte finish for long-lasting beauty.",
-      img: "https://via.placeholder.com/300x200",
-      link: "YOUR_AFFILIATE_LINK_1"
-    },
-    {
-      name: "Wireless Earbuds",
-      desc: "Crystal clear sound with deep bass.",
-      img: "https://via.placeholder.com/300x200",
-      link: "YOUR_AFFILIATE_LINK_2"
-    },
-    {
-      name: "Smart Watch",
-      desc: "Track your fitness & notifications easily.",
-      img: "https://via.placeholder.com/300x200",
-      link: "YOUR_AFFILIATE_LINK_3"
-    }
-    // Add more products as needed
+    {name:"Skin Care Set", desc:"Glow and radiance in one combo", img:"https://via.placeholder.com/300x200", link:"YOUR_AFFILIATE_LINK_1"},
+    {name:"Leather Wallet", desc:"Premium and stylish", img:"https://via.placeholder.com/300x200", link:"YOUR_AFFILIATE_LINK_2"},
+    {name:"Trendy T-Shirt", desc:"Cool summer wear", img:"https://via.placeholder.com/300x200", link:"YOUR_AFFILIATE_LINK_3"},
+    {name:"Slim Jeans", desc:"Comfortable fit", img:"https://via.placeholder.com/300x200", link:"YOUR_AFFILIATE_LINK_4"},
+    {name:"Cargo Pants", desc:"Adventure ready", img:"https://via.placeholder.com/300x200", link:"YOUR_AFFILIATE_LINK_5"},
+    {name:"Casual Shirt", desc:"Smart everyday style", img:"https://via.placeholder.com/300x200", link:"YOUR_AFFILIATE_LINK_6"},
+    {name:"Sunglasses", desc:"Trendy accessory", img:"https://via.placeholder.com/300x200", link:"YOUR_AFFILIATE_LINK_7"},
+    {name:"Perfume Set", desc:"Fragrance collection", img:"https://via.placeholder.com/300x200", link:"YOUR_AFFILIATE_LINK_8"},
+    {name:"Handbag", desc:"Chic and spacious", img:"https://via.placeholder.com/300x200", link:"YOUR_AFFILIATE_LINK_9"},
+    {name:"Sneakers", desc:"Comfortable and stylish", img:"https://via.placeholder.com/300x200", link:"YOUR_AFFILIATE_LINK_10"},
+    {name:"Watch", desc:"Classic timepiece", img:"https://via.placeholder.com/300x200", link:"YOUR_AFFILIATE_LINK_11"},
+    {name:"Bracelet", desc:"Fashion statement", img:"https://via.placeholder.com/300x200", link:"YOUR_AFFILIATE_LINK_12"},
+    {name:"Cap", desc:"Urban style", img:"https://via.placeholder.com/300x200", link:"YOUR_AFFILIATE_LINK_13"},
+    {name:"Earphones", desc:"High-quality sound", img:"https://via.placeholder.com/300x200", link:"YOUR_AFFILIATE_LINK_14"},
+    {name:"Smart Watch", desc:"Track your fitness & notifications", img:"https://via.placeholder.com/300x200", link:"YOUR_AFFILIATE_LINK_15"},
   ];
 
   const container = document.getElementById('products');
@@ -154,7 +220,7 @@
       <div class="info">
         <h2>${product.name}</h2>
         <p>${product.desc}</p>
-        <a href="${product.link}" target="_blank" class="buy-btn">Buy Now</a>
+        <a href="${product.link}" target="_blank">Buy Now</a>
       </div>
     `;
     container.appendChild(card);
@@ -166,25 +232,9 @@
       if(entry.isIntersecting) entry.target.classList.add('visible');
     });
   }, { threshold: 0.2 });
-
   document.querySelectorAll('.product-card').forEach(card => observer.observe(card));
 
-  // Confetti on click
-  const buttons = document.querySelectorAll('.buy-btn');
-  document.addEventListener('click', function(e) {
-    if(e.target.classList.contains('buy-btn')) {
-      for(let i=0;i<15;i++){
-        const confetti = document.createElement('div');
-        confetti.classList.add('confetti');
-        confetti.style.left = e.clientX + Math.random()*20 - 10 + 'px';
-        confetti.style.top = e.clientY + Math.random()*20 - 10 + 'px';
-        confetti.style.backgroundColor = `hsl(${Math.random()*360}, 100%, 50%)`;
-        document.body.appendChild(confetti);
-        setTimeout(() => confetti.remove(), 1000);
-      }
-    }
-  });
 </script>
-
 </body>
 </html>
+  
