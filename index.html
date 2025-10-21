@@ -1,5 +1,4 @@
-    
-      <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -24,30 +23,12 @@
     z-index:100;
     box-shadow:0 5px 15px rgba(0,0,0,0.1);
   }
-  .logo {
-    font-size:1.8rem;
-    font-weight:bold;
-    display:flex;
-    align-items:center;
-    animation: pulse 2s infinite;
-  }
-  .logo span {
-    display:inline-block;
-    margin-right:10px;
-    background:#fff;
-    color:#ff3b2e;
-    padding:5px 10px;
-    border-radius:8px;
-  }
-  @keyframes pulse {
-    0%,100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-  }
+  .logo img { height:50px; }
 
   /* Navigation */
   nav { display:flex; gap:15px; align-items:center; flex-wrap:wrap; }
-  nav a { color:#fff; font-weight:600; position:relative; transition:0.3s; }
-  nav a:hover { color:#fff200; }
+  nav a { color:#fff; font-weight:600; position:relative; transition:0.3s; cursor:pointer; }
+  nav a:hover, nav a.active { color:#fff200; }
   .dropdown { position:relative; }
   .dropdown-content {
     display:none;
@@ -62,8 +43,30 @@
     box-shadow:0 5px 15px rgba(0,0,0,0.2);
     z-index:10;
   }
-  .dropdown-content a { padding:10px 15px; display:block; color:#333; }
+  .dropdown-content a { padding:10px 15px; display:block; color:#333; text-decoration:none; cursor:pointer; }
+  .dropdown-content a:hover, .dropdown-content a.active { background:#ff3b2e; color:#fff; }
   .dropdown:hover .dropdown-content { display:block; }
+
+  /* Filter Buttons */
+  .filters {
+    text-align:center;
+    margin:20px 0;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:10px;
+  }
+  .filters button {
+    padding:10px 20px;
+    border:none;
+    background:#ff6f61;
+    color:#fff;
+    font-weight:bold;
+    border-radius:50px;
+    cursor:pointer;
+    transition:0.3s;
+  }
+  .filters button:hover, .filters button.active { background:#ff3b2e; transform:scale(1.05); }
 
   /* Products */
   .products {
@@ -115,34 +118,45 @@
   @media (max-width:768px) {
     .products { grid-template-columns:1fr; padding:20px; }
     .product-card img { height:200px; }
+    .filters { flex-direction:column; }
   }
-
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo"><span>B</span>Brand Haven</div>
+  <div class="logo">
+    <img src="YOUR_LOGO_URL_HERE" alt="Brand Haven">
+  </div>
   <nav>
-    <a href="#home">Home</a>
-    <a href="#allbrands">All Brands</a>
+    <a onclick="filterProducts('all', this)">Home</a>
+    <a onclick="filterProducts('all-brands', this)">All Brands</a>
     <div class="dropdown">
-      <a href="#">Categories ▼</a>
+      <a>Categories ▼</a>
       <div class="dropdown-content">
-        <a href="#">Skin Care Combo</a>
-        <a href="#">Accessories</a>
-        <a href="#">Trendy T-Shirts</a>
-        <a href="#">Jeans</a>
-        <a href="#">Cargoes</a>
-        <a href="#">Shirts</a>
+        <a onclick="filterProducts('Skin Care Combo', this)">Skin Care Combo</a>
+        <a onclick="filterProducts('Accessories', this)">Accessories</a>
+        <a onclick="filterProducts('Trendy T-Shirts', this)">Trendy T-Shirts</a>
+        <a onclick="filterProducts('Jeans', this)">Jeans</a>
+        <a onclick="filterProducts('Cargoes', this)">Cargoes</a>
+        <a onclick="filterProducts('Shirts', this)">Shirts</a>
       </div>
     </div>
   </nav>
 </header>
 
-<section class="products" id="products">
-  <!-- Products dynamically added here -->
+<section class="filters">
+  <button onclick="filterProducts('all', this)">Home</button>
+  <button onclick="filterProducts('all-brands', this)">All Brands</button>
+  <button onclick="filterProducts('Skin Care Combo', this)">Skin Care Combo</button>
+  <button onclick="filterProducts('Accessories', this)">Accessories</button>
+  <button onclick="filterProducts('Trendy T-Shirts', this)">Trendy T-Shirts</button>
+  <button onclick="filterProducts('Jeans', this)">Jeans</button>
+  <button onclick="filterProducts('Cargoes', this)">Cargoes</button>
+  <button onclick="filterProducts('Shirts', this)">Shirts</button>
 </section>
+
+<section class="products" id="products"></section>
 
 <footer>
 Brand Haven always brings you <strong>genuine, trendy products</strong> you’ll love! Explore fashion, accessories, and skincare, all carefully selected for quality and style. Click, shop, and feel great with Brand Haven.
@@ -150,48 +164,67 @@ Brand Haven always brings you <strong>genuine, trendy products</strong> you’ll
 
 <script>
 const products = [
-  {name:"Skin Care Set", desc:"Glow and radiance in one combo", img:"https://via.placeholder.com/300x250", link:"YOUR_AFFILIATE_LINK_1"},
-  {name:"Leather Wallet", desc:"Premium and stylish", img:"https://via.placeholder.com/300x250", link:"YOUR_AFFILIATE_LINK_2"},
-  {name:"Trendy T-Shirt", desc:"Cool summer wear", img:"https://via.placeholder.com/300x250", link:"YOUR_AFFILIATE_LINK_3"},
-  {name:"Slim Jeans", desc:"Comfortable fit", img:"https://via.placeholder.com/300x250", link:"YOUR_AFFILIATE_LINK_4"},
-  {name:"Cargo Pants", desc:"Adventure ready", img:"https://via.placeholder.com/300x250", link:"YOUR_AFFILIATE_LINK_5"},
-  {name:"Casual Shirt", desc:"Smart everyday style", img:"https://via.placeholder.com/300x250", link:"YOUR_AFFILIATE_LINK_6"},
-  {name:"Sunglasses", desc:"Trendy accessory", img:"https://via.placeholder.com/300x250", link:"YOUR_AFFILIATE_LINK_7"},
-  {name:"Perfume Set", desc:"Fragrance collection", img:"https://via.placeholder.com/300x250", link:"YOUR_AFFILIATE_LINK_8"},
-  {name:"Handbag", desc:"Chic and spacious", img:"https://via.placeholder.com/300x250", link:"YOUR_AFFILIATE_LINK_9"},
-  {name:"Sneakers", desc:"Comfortable and stylish", img:"https://via.placeholder.com/300x250", link:"YOUR_AFFILIATE_LINK_10"},
-  {name:"Watch", desc:"Classic timepiece", img:"https://via.placeholder.com/300x250", link:"YOUR_AFFILIATE_LINK_11"},
-  {name:"Bracelet", desc:"Fashion statement", img:"https://via.placeholder.com/300x250", link:"YOUR_AFFILIATE_LINK_12"},
-  {name:"Cap", desc:"Urban style", img:"https://via.placeholder.com/300x250", link:"YOUR_AFFILIATE_LINK_13"},
-  {name:"Earphones", desc:"High-quality sound", img:"https://via.placeholder.com/300x250", link:"YOUR_AFFILIATE_LINK_14"},
-  {name:"Smart Watch", desc:"Track your fitness & notifications", img:"https://via.placeholder.com/300x250", link:"YOUR_AFFILIATE_LINK_15"},
+  {name:"Skin Care Set", desc:"Glow and radiance", img:"https://via.placeholder.com/300x250", link:"#", category:"Skin Care Combo", brand:"Top Brand A"},
+  {name:"Leather Wallet", desc:"Premium and stylish", img:"https://via.placeholder.com/300x250", link:"#", category:"Accessories", brand:"Top Brand B"},
+  {name:"Trendy T-Shirt", desc:"Cool summer wear", img:"https://via.placeholder.com/300x250", link:"#", category:"Trendy T-Shirts", brand:"Top Brand C"},
+  {name:"Slim Jeans", desc:"Comfortable fit", img:"https://via.placeholder.com/300x250", link:"#", category:"Jeans", brand:"Top Brand D"},
+  {name:"Cargo Pants", desc:"Adventure ready", img:"https://via.placeholder.com/300x250", link:"#", category:"Cargoes", brand:"Top Brand E"},
+  {name:"Casual Shirt", desc:"Smart everyday style", img:"https://via.placeholder.com/300x250", link:"#", category:"Shirts", brand:"Top Brand F"},
 ];
 
 const container = document.getElementById('products');
 
-products.forEach(product=>{
-  const card = document.createElement('div');
-  card.classList.add('product-card');
-  card.innerHTML = `
-    <img src="${product.img}" alt="${product.name}">
-    <div class="info">
-      <h2>${product.name}</h2>
-      <p>${product.desc}</p>
-      <a href="${product.link}" target="_blank">Buy Now</a>
-    </div>
-  `;
-  container.appendChild(card);
-});
-
-// Scroll animation
+// IntersectionObserver for scroll animations
 const observer = new IntersectionObserver(entries=>{
   entries.forEach(entry=>{
     if(entry.isIntersecting) entry.target.classList.add('visible');
   });
 }, { threshold:0.2 });
 
-document.querySelectorAll('.product-card').forEach(card=>observer.observe(card));
+function displayProducts(filteredProducts) {
+  container.innerHTML = "";
+  filteredProducts.forEach(product=>{
+    const card = document.createElement('div');
+    card.classList.add('product-card');
+    card.innerHTML = `
+      <img src="${product.img}" alt="${product.name}" loading="lazy">
+      <div class="info">
+        <h2>${product.name}</h2>
+        <p>${product.desc}</p>
+        <a href="${product.link}" target="_blank" rel="nofollow noopener noreferrer">Buy Now</a>
+      </div>
+    `;
+    container.appendChild(card);
+    observer.observe(card);
+  });
+}
+
+// Initialize all products
+displayProducts(products);
+
+// Filter function with active highlighting
+function filterProducts(category, element) {
+  let filtered;
+  if(category === "all") filtered = products;
+  else if(category === "all-brands") filtered = products.filter(p=> p.brand.includes("Top Brand"));
+  else filtered = products.filter(p => p.category === category);
+
+  displayProducts(filtered);
+
+  // Remove 'active' class from all buttons and dropdown links
+  document.querySelectorAll('.filters button, .dropdown-content a, nav > a').forEach(el=>el.classList.remove('active'));
+
+  // Highlight clicked element
+  if(element) element.classList.add('active');
+
+  // If dropdown clicked, highlight corresponding top filter button
+  if(element && element.parentElement.classList.contains('dropdown-content')){
+    const button = Array.from(document.querySelectorAll('.filters button'))
+                        .find(btn => btn.textContent.trim() === category);
+    if(button) button.classList.add('active');
+  }
+}
 </script>
 
 </body>
-</html>
+    </html>
